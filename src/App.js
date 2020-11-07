@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+
+import Game from './Game';
+
+import { playerContext, gridContext } from './Context';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [turn, changeTurn] = useState(() => 'X');
+    const [grid, changeGrid] = useState(() => [
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+    ]);
+
+    const styles = {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
+    };
+
+    return (
+        <playerContext.Provider value={[turn, changeTurn]}>
+            <gridContext.Provider value={[grid, changeGrid]}>
+                <div style={styles}>
+                    <Game />
+                </div>
+            </gridContext.Provider>
+        </playerContext.Provider>
+    );
 }
 
 export default App;
